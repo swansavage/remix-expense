@@ -1,3 +1,5 @@
+import ExpenseForm from '~/components/expenses/ExpenseForm';
+
 export default function AddExpensesPage() {
-	return <div>AddExpenses</div>;
+	return <ExpenseForm />;
 }
