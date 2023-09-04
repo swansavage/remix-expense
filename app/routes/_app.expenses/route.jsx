@@ -1,7 +1,6 @@
 import { Link, Outlet } from '@remix-run/react';
 
 import ExpensesList from '~/components/expenses/ExpensesList';
-import ExpensesHeader from '../../components/navigation/ExpenseHeader';
 import { FaDownload, FaPlus } from 'react-icons/fa';
 
 const DUMMY_EXPENSES = [
