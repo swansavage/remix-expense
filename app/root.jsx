@@ -1,12 +1,16 @@
 import { cssBundleHref } from '@remix-run/css-bundle';
 import sharedStyles from '~/styles/shared.css';
+import Error from './components/util/Error';
 import {
+	Link,
 	Links,
 	LiveReload,
 	Meta,
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	useRouteError,
+	isRouteErrorResponse,
 } from '@remix-run/react';
 
 export const links = () => [
@@ -15,10 +19,33 @@ export const links = () => [
 		: [{ rel: 'stylesheet', href: sharedStyles }]),
 ];
 
-export default function App() {
+export function ErrorBoundary() {
+	const error = useRouteError();
+
+	if (isRouteErrorResponse(error)) {
+		return (
+			<Document title={error.statusText}>
+				<main>
+					<Error title={error.statusText}>
+						<p>
+							{error.data?.message ||
+								'Something went wrong, please try again later!'}
+						</p>
+						<p>
+							Back to <Link to="/">safety</Link>.
+						</p>
+					</Error>
+				</main>
+			</Document>
+		);
+	}
+}
+
+function Document({ title, children }) {
 	return (
 		<html lang="en">
 			<head>
+				<title>{title}</title>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width,initial-scale=1" />
 				<Meta />
@@ -35,11 +62,19 @@ export default function App() {
 				<Links />
 			</head>
 			<body>
-				<Outlet />
+				{children}
 				<ScrollRestoration />
 				<Scripts />
 				<LiveReload />
 			</body>
 		</html>
+	);
+}
+
+export default function App() {
+	return (
+		<Document>
+			<Outlet />
+		</Document>
 	);
 }
