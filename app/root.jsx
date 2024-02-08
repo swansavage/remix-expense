@@ -19,28 +19,6 @@ export const links = () => [
 		: [{ rel: 'stylesheet', href: sharedStyles }]),
 ];
 
-export function ErrorBoundary() {
-	const error = useRouteError();
-
-	if (isRouteErrorResponse(error)) {
-		return (
-			<Document title={error.statusText}>
-				<main>
-					<Error title={error.statusText}>
-						<p>
-							{error.data?.message ||
-								'Something went wrong, please try again later!'}
-						</p>
-						<p>
-							Back to <Link to="/">safety</Link>.
-						</p>
-					</Error>
-				</main>
-			</Document>
-		);
-	}
-}
-
 function Document({ title, children }) {
 	return (
 		<html lang="en">
@@ -69,6 +47,30 @@ function Document({ title, children }) {
 			</body>
 		</html>
 	);
+}
+
+export function ErrorBoundary() {
+	console.log('hit!');
+	const error = useRouteError();
+	console.log(error);
+	if (isRouteErrorResponse(error)) {
+		console.log(error);
+		return (
+			<Document title={error.statusText}>
+				<main>
+					<Error title={error.statusText}>
+						<p>
+							{error.data?.message ||
+								'Something went wrong, please try again later!'}
+						</p>
+						<p>
+							Back to <Link to="/">safety</Link>.
+						</p>
+					</Error>
+				</main>
+			</Document>
+		);
+	}
 }
 
 export default function App() {

@@ -60,6 +60,8 @@ export async function deleteExpense(id) {
 		});
 	} catch (error) {
 		console.log(error);
-		throw error;
+		throw new Response('Oh no! Something went wrong!', {
+			status: 500,
+		});
 	}
 }

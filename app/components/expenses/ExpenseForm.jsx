@@ -20,6 +20,10 @@ function ExpenseForm() {
 
 	const expenseData = expenses.find((expense) => expense.id === params.id);
 
+	if (params.id && !expenseData) {
+		return <p>Invalid expense id.</p>;
+	}
+
 	const navigation = useNavigation();
 
 	const isSubmitting = navigation.state !== 'idle';
