@@ -60,8 +60,7 @@ export function ErrorBoundary() {
 				<main>
 					<Error title={error.statusText}>
 						<p>
-							{error.data?.message ||
-								'Something went wrong, please try again later!'}
+							{error.data || 'Something went wrong, please try again later!'}
 						</p>
 						<p>
 							Back to <Link to="/">safety</Link>.
